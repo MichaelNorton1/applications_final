@@ -12,6 +12,6 @@ router.get("/nfl", statController);
 
 router.get("/db", getPgVersion);
 
-router.put("/analyze", analyzeData);
+router.get("/analyze", analyzeData);
 
 export default router;
