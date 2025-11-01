@@ -23,10 +23,12 @@ export const statController = async (req: Request, res: Response) => {
         let callStandings= await fetch("https://www.espn.com/nfl/standings/_/group/league")
         let standingsText = await callStandings.text()
         let standdingsDom= new jsdom.JSDOM(standingsText);
-        let final=Array.from(standdingsDom.window.document.querySelectorAll('tr'));
+        let final=Array.from(standdingsDom.window.document.querySelectorAll('tr a abbr'));
+        let standins = final.map((team,index) => {return team.innerHTML
 
+        })
 
-        return res.status(200).send(final[1].textContent)
+        return res.status(200).send([standins.slice(0,5),names.slice(0,5)] )
 
     } catch (err) {
         console.error(err)
