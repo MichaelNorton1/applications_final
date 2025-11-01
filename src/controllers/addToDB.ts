@@ -7,7 +7,7 @@ const sql = neon(`postgresql://${PGUSER}:${PGPASSWORD}@${PGHOST}/${PGDATABASE}?s
 
 export async function getPgVersion(req: Request, res: Response) {
 
-console.log(req);
+
     try {
 
         const authHeader = req.get('Authorization'); // ✅ Express-safe
