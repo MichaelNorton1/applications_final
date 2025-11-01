@@ -9,7 +9,7 @@ export async function getPgVersion( req: Request, res: Response ) {
 
 try {
 
-    const getTop5= await fetch('/api/nfl')
+    const getTop5= await fetch('https://applications-final.vercel.app/api/nfl')
 
     const top5 = await getTop5.json();
 
