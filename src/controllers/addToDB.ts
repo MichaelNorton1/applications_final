@@ -9,8 +9,9 @@ export async function getPgVersion(req: Request, res: Response) {
 
 console.log(req);
     try {
-        // @ts-ignore
-        if (req.headers.get('Authorization') !== `Bearer ${process.env.CRON_SECRET}`) {
+
+        const authHeader = req.get('Authorization'); // ✅ Express-safe
+        if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
             return res.status(401).end('Unauthorized');
         }
 
