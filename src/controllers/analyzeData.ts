@@ -48,8 +48,8 @@ export const analyzeData = async (req: Request, res: Response) => {
 
         for (const row of rows) {
             const [teams, qbs] = row.data;
-            const qbTeams = qbs.map(([_, team]) => team);
-            const correlated = teams.filter(team => qbTeams.includes(team));
+            const qbTeams = qbs.map(([_, team]:string) => team);
+            const correlated = teams.filter((team: any) => qbTeams.includes(team));
 
             html += `
     <tr>
