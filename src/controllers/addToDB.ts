@@ -1,24 +1,33 @@
 import {neon} from '@neondatabase/serverless';
 import {Request, Response} from "express";
+
 const {PGHOST, PGDATABASE, PGUSER, PGPASSWORD} = process.env;
 
 const sql = neon(`postgresql://${PGUSER}:${PGPASSWORD}@${PGHOST}/${PGDATABASE}?sslmode=require`);
 
-export async function getPgVersion( req: Request, res: Response ) {
+export async function getPgVersion(req: Request, res: Response) {
 
 
-try {
+    try {
 
-    const getTop5= await fetch('https://applications-final.vercel.app/api/nfl')
+        const getTop5 = await fetch('https://applications-final.vercel.app/api/nfl')
 
-    const top5 = await getTop5.json();
+        const top5 = await getTop5.json();
 
-    return res.status(200).send(top5)
-}catch (e) {
-    console.error(e);
 
-}
+        await sql`
+            INSERT INTO nfl (data, date)
+            VALUES (${JSON.stringify(top5)}::json, CURRENT_DATE);
+        `;
 
+        console.log('teams logged successfully.');
+
+
+        return res.status(200).send(top5)
+    } catch (e) {
+        console.error(e);
+
+    }
 
 
 }
