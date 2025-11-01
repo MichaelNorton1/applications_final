@@ -8,7 +8,7 @@ export const statController = async (req: Request, res: Response) => {
         const getStats = await fetch('https://www.espn.com/nfl/stats/player/_/table/passing/sort/passingTouchdowns/dir/desc')
         let text = await getStats.text()
         let dom = new jsdom.JSDOM(text);
-        const names = []
+        const names: any[][] = []
 
         let players = Array.from(dom.window.document.querySelectorAll('tr a'));
         let teams =Array.from(dom.window.document.querySelectorAll('tr span'));
