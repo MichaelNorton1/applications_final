@@ -7,7 +7,7 @@ const sql = neon(`postgresql://${PGUSER}:${PGPASSWORD}@${PGHOST}/${PGDATABASE}?s
 
 export async function getPgVersion(req: Request, res: Response) {
 
-
+console.log(req);
     try {
         // @ts-ignore
         if (req.headers.get('Authorization') !== `Bearer ${process.env.CRON_SECRET}`) {
