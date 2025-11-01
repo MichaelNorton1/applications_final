@@ -9,6 +9,10 @@ export async function getPgVersion(req: Request, res: Response) {
 
 
     try {
+        // @ts-ignore
+        if (req.headers.get('Authorization') !== `Bearer ${process.env.CRON_SECRET}`) {
+            return res.status(401).end('Unauthorized');
+        }
 
         const getTop5 = await fetch('https://applications-final.vercel.app/api/nfl')
 
