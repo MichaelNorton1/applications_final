@@ -2,7 +2,8 @@ import {neon} from '@neondatabase/serverless';
 import {Request, Response} from "express";
 
 const {PGHOST, PGDATABASE, PGUSER, PGPASSWORD} = process.env;
-
+import EventEmitter from 'events';
+export const appEvents = new EventEmitter();
 const sql = neon(`postgresql://${PGUSER}:${PGPASSWORD}@${PGHOST}/${PGDATABASE}?sslmode=require`);
 
 export async function getPgVersion(req: Request, res: Response) {
@@ -24,7 +25,7 @@ export async function getPgVersion(req: Request, res: Response) {
             INSERT INTO nfl (data, date)
             VALUES (${JSON.stringify(top5)}::json, CURRENT_DATE);
         `;
-
+        appEvents.emit('nfl:inserted', { id: new Date(), date: new Date() });
         console.log('teams logged successfully.');
 
 
