@@ -1,0 +1,17 @@
+import type { Config } from "jest";
+
+const config: Config = {
+    preset: "ts-jest/presets/default-esm",
+    testEnvironment: "node",
+    extensionsToTreatAsEsm: [".ts"],
+    globals: {
+        "ts-jest": {
+            useESM: true,
+            diagnostics: {
+                ignoreCodes: [151002],
+            },
+        },
+    },
+};
+
+export default config;
