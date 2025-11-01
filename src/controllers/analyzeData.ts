@@ -74,7 +74,7 @@ export const analyzeData = async (req: Request, res: Response) => {
         console.log(html);
 
 
-        return res.status(200).json(rows);
+        return html;
     } catch (err) {
         console.error('Error fetching data:', err);
         return res.status(500).send('Internal Server Error');
